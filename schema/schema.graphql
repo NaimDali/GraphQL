@@ -1,54 +1,70 @@
 type Infos {
-    name: String!
-    firstname: String!
+  name: String!
+  firstname: String!
 }
 enum Gender {
-    MALE
-    FEMALE
+  MALE
+  FEMALE
 }
 type Student {
-    id: ID!
-    name: String!
-    age: Int!
-    gender: Gender!
-    classroom: Classroom
+  id: ID!
+  name: String!
+  age: Int!
+  gender: Gender!
+  classroom: Classroom
 }
 type Classroom {
-    id: ID!
-    designation: String!
-    students: [Student!]
+  id: ID!
+  designation: String!
+  students: [Student!]
 }
 
-enum TodoStatus{
-    WAITING
-    IN_PROGRESS
-    CANCELED
-    DONE
+enum TodoStatus {
+  WAITING
+  IN_PROGRESS
+  CANCELED
+  DONE
 }
 
-type Todo{
-    id: String!
-    name: String!
-    content: String!
-    status: TodoStatus!
-    user: User!
+type Todo {
+  id: String!
+  name: String!
+  content: String!
+  status: TodoStatus!
+  user: User!
 }
 
-type User{
-    id: String!
-    name: String!
-    email: String
-    todos: [Todo]
+type User {
+  id: String!
+  name: String!
+  email: String
+  todos: [Todo]
 }
 
 type Query {
-    hello(name: String): String!
-    infos: Infos!
-    getAllStudents: [Student]
-    getStudent(id:ID!): Student
-    getAllTodos: [Todo]
-    getTodo(id: String) : Todo
-    getUser(id: String): User
-    getUsers: [User]
+  hello(name: String): String!
+  infos: Infos!
+  getAllStudents: [Student]
+  getStudent(id: ID!): Student
+  getAllTodos: [Todo]
+  getTodo(id: String): Todo
+  getUser(id: String): User
+  getUsers: [User]
 }
 
+input AddTodoInput {
+  name: String!
+  content: String!
+  userId: String!
+}
+input ModifyTodoInput {
+  name: String = ""
+  content: String = ""
+  userId: String = ""
+  status: TodoStatus = TodoStatus.WAITING
+}
+type Mutation {
+  addTodo(addTodoInput: AddTodoInput): Todo
+  updateTodo(id: String!, modifyTodoInput: ModifyTodoInput): Todo
+  deleteTodo(id: String!): Todo
+}
