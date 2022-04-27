@@ -68,3 +68,10 @@ type Mutation {
   updateTodo(id: String!, modifyTodoInput: ModifyTodoInput): Todo
   deleteTodo(id: String!): Todo
 }
+type Subscription {
+  todo: TodoSubscriptioPayload!
+}
+type TodoSubscriptioPayload {
+  todo: Todo!
+  mutation: MutationOperationType!
+}
